@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Todo list:</h1>
+    <input type="text" id="inputTask" autofocus></input>
+    <button onclick="addToList()" id="addButton">Add to list!</button>
+    <br><br><br>
+    <input type="checkbox" id="deleteConfirm"></input>
+    <label for="deleteConfirm">Don't ask me if i want to delete.</label>
+    <h2>Todo:</h2>
+    <ol id="list"></ol>
+    <h2>Done:</h2>
+    <ol id="doneList"></ol>
+    <script src="script.js"></script>
+</body>
+</html>
