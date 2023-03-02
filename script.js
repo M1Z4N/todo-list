@@ -1,7 +1,7 @@
 const currentTasks = new Map();
 const doneTasks = new Map();
 
-function writeTasks(currentTasks,doneTasks) {
+function writeTasks() {
     if(currentTasks.size != 0) { // When task/tasks exist in Map add it to list
         // Clearing list before listing new tasks to prevent duplicating tasks
         document.getElementById('list').innerHTML = "";
@@ -72,12 +72,12 @@ function addTask() {
             console.log("Damn it! Duplicated uuid: " + uuid);
             uuid = generateUUID();
         }
-        
+        // Adding new taks to map currentTasks with current time
        currentTasks.set(uuid, {task: inputTask, date: currentTime()});
     //    console.log(Array.from(currentTasks));  // For debbuging purposes
     document.getElementById("inputTask").value = ""; // Clearing input after adding task to list   
     console.log("%cCreated new task! UUID: " + uuid, "color:green");
-    writeTasks(currentTasks,doneTasks);
+    writeTasks(); // Refreshing lists
 }
 }
 
@@ -91,11 +91,11 @@ function deleteTask(uuid) {
     if(currentTasks.has(uuid)) {
         console.log("Task deleted from current tasks! UUID: " + uuid);
         currentTasks.delete(uuid);
-        writeTasks(currentTasks,doneTasks); // Refreshing lists
+        writeTasks(); // Refreshing lists
     } else if(doneTasks.has(uuid)) { // if uuid is in doneTasks map delete it
         console.log("Task deleted from done tasks! UUID: " + uuid);
         doneTasks.delete(uuid);
-        writeTasks(currentTasks,doneTasks); // Refreshing lists
+        writeTasks(); // Refreshing lists
     } else {
         // If somehow there's no such a uuid return error in console
         console.log("%cError! There's no such a uuid! UUID: " + uuid, "color:red");
@@ -110,11 +110,11 @@ function deleteTask(uuid) {
     if(currentTasks.has(uuid)) {
         console.log("Task deleted from current tasks! UUID: " + uuid);
         currentTasks.delete(uuid);
-        writeTasks(currentTasks,doneTasks); // Refreshing lists
+        writeTasks(); // Refreshing lists
     } else if(doneTasks.has(uuid)) { // if uuid is in doneTasks map delete it
         console.log("Task deleted from done tasks! UUID: " + uuid);
         doneTasks.delete(uuid);
-        writeTasks(currentTasks,doneTasks); // Refreshing lists
+        writeTasks(); // Refreshing lists
     } else {
         // If somehow there's no such a uuid return error in console
         console.log("%cError! There's no such a uuid! UUID: " + uuid, "color:red");
@@ -124,10 +124,10 @@ function deleteTask(uuid) {
 
 function deleteAll(map,listName) {
     if(map.size != 0) {
-    if(confirm("Are your sure you want delete " + listName + "?")) {
+    if(confirm("Are your sure you want delete " + listName + " list?")) {
         map.clear();
         console.log(listName + " list has been deleted!");
-        writeTasks(currentTasks, doneTasks); // Refreshing lists
+        writeTasks(); // Refreshing lists
     } else {
         // Nothing happens when user press no
     }
@@ -143,7 +143,7 @@ function moveToDoneTasks(uuid) {
     doneTasks.set(uuid, {task: currentTaskContent, date: currentTaskDate});
     currentTasks.delete(uuid);
     console.log("Task moved to done section. UUID: " + uuid);
-    writeTasks(currentTasks,doneTasks);
+    writeTasks(); // Refreshing lists
 }
 
 // Function for returning task to Todo list from Done: section
@@ -153,7 +153,7 @@ function moveToCurrentTasks(uuid) {
     currentTasks.set(uuid, {task: doneTaskContent, date: doneTaskDate});
     doneTasks.delete(uuid);
     console.log("Task moved to ToDo section. UUID: " + uuid);
-    writeTasks(currentTasks,doneTasks);
+    writeTasks(); // Refreshing lists
 }
 
 
@@ -175,9 +175,9 @@ function currentTime() {
     const month = date.getMonth() + 1; // Because getMonth() starts from 0
     // If minutes are underneath 10 insert 0 before minutes otherwise don't
     if(date.getMinutes() < 10) {
-        dateOfTaskAdded += "0" + date.getMinutes() +"&nbsp&nbsp "+ date.getDate() +"-"+ month +"-"+ date.getFullYear();
+        dateOfTaskAdded += "0" + date.getMinutes() +" "+ date.getDate() +"-"+ month +"-"+ date.getFullYear();
     } else {
-        dateOfTaskAdded += date.getMinutes() +"&nbsp&nbsp "+ date.getDate() +"-"+ month +"-"+ date.getFullYear();
+        dateOfTaskAdded += date.getMinutes() +" "+ date.getDate() +"-"+ month +"-"+ date.getFullYear();
     }
 
     return dateOfTaskAdded;
