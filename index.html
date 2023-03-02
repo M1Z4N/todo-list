@@ -16,9 +16,9 @@
     <br><br><br>
     <input type="checkbox" id="deleteConfirm"></input>
     <label for="deleteConfirm">Don't ask me if i want to delete.</label>
-    <h2>Todo:</h2>
+    <h2>Todo: <button onclick="deleteAll(currentTasks, 'To Do')">Delete all todo tasks</button></h2>
     <ol id="list"></ol>
-    <h2>Done:</h2>
+    <h2>Done: <button onclick="deleteAll(doneTasks, 'Done')">Delete all done tasks</button></h2>
     <ol id="doneList"></ol>
     <footer>Created by Artur Nazim | Github: <a href="https://github.com/M1Z4N" target="_blank">M1Z4N</a></footer>
     <script src="script.js"></script>

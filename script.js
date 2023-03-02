@@ -122,6 +122,20 @@ function deleteTask(uuid) {
 }
 }
 
+function deleteAll(map,listName) {
+    if(map.size != 0) {
+    if(confirm("Are your sure you want delete " + listName + "?")) {
+        map.clear();
+        console.log(listName + " list has been deleted!");
+        writeTasks(currentTasks, doneTasks); // Refreshing lists
+    } else {
+        // Nothing happens when user press no
+    }
+} else {
+    alert("There's nothing to delete.")
+}
+}
+
 // Function for moving task to Done: section
 function moveToDoneTasks(uuid) { 
     const currentTaskContent = currentTasks.get(uuid).task;
