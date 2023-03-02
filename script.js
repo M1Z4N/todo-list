@@ -1,68 +1,177 @@
-let liIndex = 0; // Index for buttons and li elements
-let deleteButton = "";
-let doneButton = "";
-let undoneButton = "";
+const currentTasks = new Map();
+const doneTasks = new Map();
 
-function addToList() {
-    const inputTask = document.getElementById("inputTask").value;
-
-    if (inputTask == '') {
-        alert("Enter task first!") // If input is empty show alert
+function writeTasks(currentTasks,doneTasks) {
+    if(currentTasks.size != 0) { // When task/tasks exist in Map add it to list
+        // Clearing list before listing new tasks to prevent duplicating tasks
+        document.getElementById('list').innerHTML = "";
+        for(const [index, value] of currentTasks.entries()) {
+            // New <li> element
+            const li = document.createElement('li');
+            // Inserting task to <li> element with buttons and date of create
+            li.innerHTML = value.task + deleteButtonGenerateFunc(index) + doneButtonGenerateFunc(index) + "&nbsp&nbsp| Added on " + value.date;
+            // Downloding <ol id='list'> element
+            const list = document.getElementById('list');
+            // Adding child <li> element to ToDo list with UUID as id attribute
+            list.appendChild(li).setAttribute('id',index);;
+        };
     } else {
-        const li = document.createElement('li'); // New li element
-        // Putting current liIndex to buttons for new task
-        deleteButton = " <button style='color:red;' onclick='deleteTask("+liIndex+")'>Delete</button>";
-        doneButton = " <button style='color:green;' onclick='doneTask(`span"+liIndex+"`,"+ liIndex +")'>Done</button>";
-        // Adding task from input to li element with buttons
-        li.innerHTML = "<span id=span" + liIndex + ">" + inputTask + "</span>" + deleteButton + doneButton;
+        // Short message for user to add tasks
+        
+        // Clearing list to prevent duplicating short message
+        document.getElementById('list').innerHTML = "";
+        // New <p> element
+        const p = document.createElement('p');
+        // Inserting message to <p> element
+        p.innerHTML = "Add some tasks!";
+        // Downloding <ol id='list'> element
         const list = document.getElementById('list');
-        // Adding index to li as attribute id so i can delete it later easily
-        list.appendChild(li).setAttribute('id',liIndex);
-        liIndex++; // Incrementing index for new buttons and li elements
-        document.getElementById("inputTask").value = ""; // Clearing input after adding task to list
+        // Adding child <p> element to ToDo list
+        list.appendChild(p);
+    }
+    
+    if(doneTasks.size != 0) { // When task/tasks exist in Map add it to list
+        // Clearing list before listing new tasks to prevent duplicating tasks
+        document.getElementById('doneList').innerHTML = "";
+        for(const [index, value] of doneTasks.entries()) {
+            // New <li> element
+            const li = document.createElement('li');
+            // Inserting task to <li> element 
+            li.innerHTML = value.task + deleteButtonGenerateFunc(index) + undoneButtonGenerateFunc(index) + "&nbsp&nbsp| Added on " + value.date;
+            // Downloding <ol id='doneList'> element
+            const list = document.getElementById('doneList');
+            // Adding child <li> element to ToDo doneList with UUID as id attribute
+            list.appendChild(li).setAttribute('id',index);;
+        };
+    } else {
+        // Short message for user that there's no finished tasks
+        
+        // Clearing list to prevent duplicating short message
+        document.getElementById('doneList').innerHTML = "";
+        // New <p> element
+        const p = document.createElement('p');
+        // Inserting message to <p> element
+        p.innerHTML = "There's no finished tasks!";
+        // Downloding <ol id='doneList'> element
+        const list = document.getElementById('doneList');
+        // Adding child <p> element to ToDo list
+        list.appendChild(p);
     }
 }
 
-// Function for moving task to Done: section
-function doneTask(taskSpanIndex,indexOfLi) { 
-    const taskContent = document.getElementById(taskSpanIndex).innerText;
-    const li = document.createElement('li');
-    // Putting current indexForLi to button for new task in done section
-    deleteButton = " <button style='color:red;' onclick='deleteTask("+indexOfLi+")'>Delete</button>";
-    undoneButton = " <button style='color:blue;' onclick='undoTask(`"+ taskSpanIndex + "`," + indexOfLi+")'>Not done!</button>";
-
-    li.innerHTML = "<span id=span" + indexOfLi + ">" + taskContent + "</span>" + deleteButton + undoneButton;
-    const doneList = document.getElementById('doneList');
-    doneList.appendChild(li).setAttribute('id',indexOfLi);
-    document.getElementById(indexOfLi).remove();
+function addTask() {
+    const inputTask = document.getElementById('inputTask').value;
     
+    if(inputTask == '') {
+        alert("Enter task first!") // If input is empty show alert
+    } else {
+        let uuid = generateUUID();
+        
+        // Checks if uuid is duplicated, if it is generating new one and checks again
+        while(currentTasks.has(uuid)) {
+            console.log("Damn it! Duplicated uuid: " + uuid);
+            uuid = generateUUID();
+        }
+        
+       currentTasks.set(uuid, {task: inputTask, date: currentTime()});
+    //    console.log(Array.from(currentTasks));  // For debbuging purposes
+    document.getElementById("inputTask").value = ""; // Clearing input after adding task to list   
+    console.log("%cCreated new task! UUID: " + uuid, "color:green");
+    writeTasks(currentTasks,doneTasks);
 }
-
-// Function for returning task to Todo list from Done: section
-function undoTask(taskSpanId, indexOfLi) {
-    const taskContent = document.getElementById(taskSpanId).innerText;
-    const li = document.createElement('li');
-    deleteButton = " <button style='color:red;' onclick='deleteTask("+indexOfLi+")'>Delete</button>";
-    doneButton = " <button style='color:green;' onclick='doneTask(`"+taskSpanId+"`,"+ indexOfLi +")'>Done</button>";
-    
-    li.innerHTML = "<span id=" + taskSpanId + ">" + taskContent + "</span>" + deleteButton + doneButton;
-    document.getElementById(indexOfLi).remove();
-    const list = document.getElementById('list');
-    list.appendChild(li).setAttribute('id',indexOfLi);
 }
 
 // Simple delete function 
-function deleteTask(indexOfLi) {
+function deleteTask(uuid) {
+    // Checking if user checked to not ask before deleting
     if(!document.getElementById("deleteConfirm").checked) {
+        // If user didn't checked ask him every time before deleting task
     if(confirm("Are you sure you want delete it? There's no way back!")) {
-    document.getElementById(indexOfLi).remove();
+        // if uuid is in currentTasks map delete it
+    if(currentTasks.has(uuid)) {
+        console.log("Task deleted from current tasks! UUID: " + uuid);
+        currentTasks.delete(uuid);
+        writeTasks(currentTasks,doneTasks); // Refreshing lists
+    } else if(doneTasks.has(uuid)) { // if uuid is in doneTasks map delete it
+        console.log("Task deleted from done tasks! UUID: " + uuid);
+        doneTasks.delete(uuid);
+        writeTasks(currentTasks,doneTasks); // Refreshing lists
+    } else {
+        // If somehow there's no such a uuid return error in console
+        console.log("%cError! There's no such a uuid! UUID: " + uuid, "color:red");
+    }
     } else {
         // Nothing happens when user press no
     } 
 }  else {
-    // There's no confirm window if user check delteConfirm checkbox, just simple removal
-    document.getElementById(indexOfLi).remove();
+    // There's no confirm window if user check deleteConfirm checkbox, just simple removal
+
+    // if uuid is in currentTasks map delete it
+    if(currentTasks.has(uuid)) {
+        console.log("Task deleted from current tasks! UUID: " + uuid);
+        currentTasks.delete(uuid);
+        writeTasks(currentTasks,doneTasks); // Refreshing lists
+    } else if(doneTasks.has(uuid)) { // if uuid is in doneTasks map delete it
+        console.log("Task deleted from done tasks! UUID: " + uuid);
+        doneTasks.delete(uuid);
+        writeTasks(currentTasks,doneTasks); // Refreshing lists
+    } else {
+        // If somehow there's no such a uuid return error in console
+        console.log("%cError! There's no such a uuid! UUID: " + uuid, "color:red");
+    }
 }
+}
+
+// Function for moving task to Done: section
+function moveToDoneTasks(uuid) { 
+    const currentTaskContent = currentTasks.get(uuid).task;
+    const currentTaskDate = currentTasks.get(uuid).date;
+    doneTasks.set(uuid, {task: currentTaskContent, date: currentTaskDate});
+    currentTasks.delete(uuid);
+    console.log("Task moved to done section. UUID: " + uuid);
+    writeTasks(currentTasks,doneTasks);
+}
+
+// Function for returning task to Todo list from Done: section
+function moveToCurrentTasks(uuid) {
+    const doneTaskContent = doneTasks.get(uuid).task;
+    const doneTaskDate = doneTasks.get(uuid).date;
+    currentTasks.set(uuid, {task: doneTaskContent, date: doneTaskDate});
+    doneTasks.delete(uuid);
+    console.log("Task moved to ToDo section. UUID: " + uuid);
+    writeTasks(currentTasks,doneTasks);
+}
+
+
+function deleteButtonGenerateFunc(uuid) {
+    return " <button style='color:red;' onclick='deleteTask(`"+ uuid +"`)'>Delete</button>";
+}
+
+function doneButtonGenerateFunc(uuid) {
+    return " <button style='color:green;' onclick='moveToDoneTasks(`"+ uuid +"`)'>Done</button>";
+}
+
+function undoneButtonGenerateFunc(uuid) {
+    return " <button style='color:blue;' onclick='moveToCurrentTasks(`"+ uuid +"`)'>Not done!</button>";
+}
+
+function currentTime() {
+    const date = new Date();
+    let dateOfTaskAdded = "" + date.getHours() +":";
+    const month = date.getMonth() + 1; // Because getMonth() starts from 0
+    // If minutes are underneath 10 insert 0 before minutes otherwise don't
+    if(date.getMinutes() < 10) {
+        dateOfTaskAdded += "0" + date.getMinutes() +"&nbsp&nbsp "+ date.getDate() +"-"+ month +"-"+ date.getFullYear();
+    } else {
+        dateOfTaskAdded += date.getMinutes() +"&nbsp&nbsp "+ date.getDate() +"-"+ month +"-"+ date.getFullYear();
+    }
+
+    return dateOfTaskAdded;
+}
+
+// Random UUID for easily identify tasks and element <li>
+function generateUUID() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
 // Triggers button click on the Enter key
