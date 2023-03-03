@@ -1,5 +1,6 @@
-const currentTasks = new Map();
-const doneTasks = new Map();
+// Downloading tasks from local storage
+const currentTasks = new Map(JSON.parse(localStorage.getItem('currentTasks')));
+const doneTasks = new Map(JSON.parse(localStorage.getItem('doneTasks')));
 
 function writeTasks() {
     if(currentTasks.size != 0) { // When task/tasks exist in Map add it to list
@@ -74,6 +75,8 @@ function addTask() {
         }
         // Adding new taks to map currentTasks with current time
        currentTasks.set(uuid, {task: inputTask, date: currentTime()});
+    //    Adding tasks to local storage using json
+       localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
     //    console.log(Array.from(currentTasks));  // For debbuging purposes
     document.getElementById("inputTask").value = ""; // Clearing input after adding task to list   
     console.log("%cCreated new task! UUID: " + uuid, "color:green");
@@ -91,10 +94,14 @@ function deleteTask(uuid) {
     if(currentTasks.has(uuid)) {
         console.log("Task deleted from current tasks! UUID: " + uuid);
         currentTasks.delete(uuid);
+        // Refreshing local storage after deleting task
+        localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
         writeTasks(); // Refreshing lists
     } else if(doneTasks.has(uuid)) { // if uuid is in doneTasks map delete it
         console.log("Task deleted from done tasks! UUID: " + uuid);
         doneTasks.delete(uuid);
+        // Refreshing local storage after deleting task
+        localStorage.setItem('doneTasks', JSON.stringify([...doneTasks]));
         writeTasks(); // Refreshing lists
     } else {
         // If somehow there's no such a uuid return error in console
@@ -110,10 +117,14 @@ function deleteTask(uuid) {
     if(currentTasks.has(uuid)) {
         console.log("Task deleted from current tasks! UUID: " + uuid);
         currentTasks.delete(uuid);
+        // Refreshing local storage after deleting task
+        localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
         writeTasks(); // Refreshing lists
     } else if(doneTasks.has(uuid)) { // if uuid is in doneTasks map delete it
         console.log("Task deleted from done tasks! UUID: " + uuid);
         doneTasks.delete(uuid);
+        // Refreshing local storage after deleting task
+        localStorage.setItem('doneTasks', JSON.stringify([...doneTasks]));
         writeTasks(); // Refreshing lists
     } else {
         // If somehow there's no such a uuid return error in console
@@ -122,10 +133,12 @@ function deleteTask(uuid) {
 }
 }
 
-function deleteAll(map,listName) {
+function deleteAll(map,listName,localStorageItemKey) {
     if(map.size != 0) {
     if(confirm("Are your sure you want delete " + listName + " list?")) {
         map.clear();
+        // Refreshing local storage after deleting tasks
+        localStorage.setItem(localStorageItemKey, JSON.stringify([...map]));
         console.log(listName + " list has been deleted!");
         writeTasks(); // Refreshing lists
     } else {
@@ -142,6 +155,9 @@ function moveToDoneTasks(uuid) {
     const currentTaskDate = currentTasks.get(uuid).date;
     doneTasks.set(uuid, {task: currentTaskContent, date: currentTaskDate});
     currentTasks.delete(uuid);
+    // Refreshing local storage 
+    localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
+    localStorage.setItem('doneTasks', JSON.stringify([...doneTasks]));
     console.log("Task moved to done section. UUID: " + uuid);
     writeTasks(); // Refreshing lists
 }
@@ -152,6 +168,9 @@ function moveToCurrentTasks(uuid) {
     const doneTaskDate = doneTasks.get(uuid).date;
     currentTasks.set(uuid, {task: doneTaskContent, date: doneTaskDate});
     doneTasks.delete(uuid);
+    // Refreshing local storage 
+    localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
+    localStorage.setItem('doneTasks', JSON.stringify([...doneTasks]));
     console.log("Task moved to ToDo section. UUID: " + uuid);
     writeTasks(); // Refreshing lists
 }
