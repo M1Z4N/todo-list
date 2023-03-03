@@ -60,6 +60,11 @@ function writeTasks() {
     }
 }
 
+// Simple function to easy refresh local storage after changes
+function refreshStorage(localStorageItemKey, map) {
+    localStorage.setItem(localStorageItemKey, JSON.stringify([...map]));
+}
+
 function addTask() {
     const inputTask = document.getElementById('inputTask').value;
     
@@ -76,7 +81,7 @@ function addTask() {
         // Adding new taks to map currentTasks with current time
        currentTasks.set(uuid, {task: inputTask, date: currentTime()});
     //    Adding tasks to local storage using json
-       localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
+       refreshStorage('currentTasks', currentTasks);
     //    console.log(Array.from(currentTasks));  // For debbuging purposes
     document.getElementById("inputTask").value = ""; // Clearing input after adding task to list   
     console.log("%cCreated new task! UUID: " + uuid, "color:green");
@@ -95,13 +100,13 @@ function deleteTask(uuid) {
         console.log("Task deleted from current tasks! UUID: " + uuid);
         currentTasks.delete(uuid);
         // Refreshing local storage after deleting task
-        localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
+        refreshStorage('currentTasks', currentTasks);
         writeTasks(); // Refreshing lists
     } else if(doneTasks.has(uuid)) { // if uuid is in doneTasks map delete it
         console.log("Task deleted from done tasks! UUID: " + uuid);
         doneTasks.delete(uuid);
         // Refreshing local storage after deleting task
-        localStorage.setItem('doneTasks', JSON.stringify([...doneTasks]));
+        refreshStorage('doneTasks', doneTasks);
         writeTasks(); // Refreshing lists
     } else {
         // If somehow there's no such a uuid return error in console
@@ -118,13 +123,13 @@ function deleteTask(uuid) {
         console.log("Task deleted from current tasks! UUID: " + uuid);
         currentTasks.delete(uuid);
         // Refreshing local storage after deleting task
-        localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
+        refreshStorage('currentTasks', currentTasks);
         writeTasks(); // Refreshing lists
     } else if(doneTasks.has(uuid)) { // if uuid is in doneTasks map delete it
         console.log("Task deleted from done tasks! UUID: " + uuid);
         doneTasks.delete(uuid);
         // Refreshing local storage after deleting task
-        localStorage.setItem('doneTasks', JSON.stringify([...doneTasks]));
+        refreshStorage('doneTasks', doneTasks);
         writeTasks(); // Refreshing lists
     } else {
         // If somehow there's no such a uuid return error in console
@@ -138,7 +143,7 @@ function deleteAll(map,listName,localStorageItemKey) {
     if(confirm("Are your sure you want delete " + listName + " list?")) {
         map.clear();
         // Refreshing local storage after deleting tasks
-        localStorage.setItem(localStorageItemKey, JSON.stringify([...map]));
+        refreshStorage(localStorageItemKey, map);
         console.log(listName + " list has been deleted!");
         writeTasks(); // Refreshing lists
     } else {
@@ -156,8 +161,8 @@ function moveToDoneTasks(uuid) {
     doneTasks.set(uuid, {task: currentTaskContent, date: currentTaskDate});
     currentTasks.delete(uuid);
     // Refreshing local storage 
-    localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
-    localStorage.setItem('doneTasks', JSON.stringify([...doneTasks]));
+    refreshStorage('currentTasks', currentTasks);
+    refreshStorage('doneTasks', doneTasks);
     console.log("Task moved to done section. UUID: " + uuid);
     writeTasks(); // Refreshing lists
 }
@@ -169,8 +174,8 @@ function moveToCurrentTasks(uuid) {
     currentTasks.set(uuid, {task: doneTaskContent, date: doneTaskDate});
     doneTasks.delete(uuid);
     // Refreshing local storage 
-    localStorage.setItem('currentTasks', JSON.stringify([...currentTasks]));
-    localStorage.setItem('doneTasks', JSON.stringify([...doneTasks]));
+    refreshStorage('currentTasks', currentTasks);
+    refreshStorage('doneTasks', doneTasks);
     console.log("Task moved to ToDo section. UUID: " + uuid);
     writeTasks(); // Refreshing lists
 }
