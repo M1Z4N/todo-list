@@ -14,7 +14,7 @@ function writeTasks() {
             // Downloding <ol id='list'> element
             const list = document.getElementById('list');
             // Adding child <li> element to ToDo list with UUID as id attribute
-            list.appendChild(li).setAttribute('id',index);;
+            list.appendChild(li).setAttribute('id',index);
         };
     } else {
         // Short message for user to add tasks
@@ -42,7 +42,7 @@ function writeTasks() {
             // Downloding <ol id='doneList'> element
             const list = document.getElementById('doneList');
             // Adding child <li> element to ToDo doneList with UUID as id attribute
-            list.appendChild(li).setAttribute('id',index);;
+            list.appendChild(li).setAttribute('id',index);
         };
     } else {
         // Short message for user that there's no finished tasks
