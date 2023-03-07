@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&family=Sofia+Sans+Semi+Condensed:wght@300&display=swap');
+/* 
+font-family: 'Rubik', sans-serif;
+font-family: 'Sofia Sans Semi Condensed', sans-serif; 
+*/
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sofia Sans Semi Condensed', sans-serif;
+    font-size: 1.1em;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+#container {
+    width: 50vw;
+}
+
+#container h1 {
+    font-family: 'Rubik', sans-serif;
+    text-align: center;
+    color: white;
+    font-size: 2em;
+}
+
+header {
+    background: rgb(37,37,224);
+    background: radial-gradient(circle, rgba(37,37,224,1) 0%, rgba(255,255,255,1) 100%);
+    background-position: 50% -100%;
+    padding: 30px;
+}
+
+input[type=text] {
+    width: 99%;
+    padding: 12px 12px;
+    padding-right: 50px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+input[type=checkbox]:hover {
+    cursor: pointer;
+}
+
+header button {
+    transition: 0.2s;
+    margin-left: -50px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 6px;
+    background-color: rgb(125, 125, 255);
+}
+
+header button i {
+    color: white;
+}
+
+header button:hover {
+    transition: 0.2s;
+    transform: scale(0.8);
+    cursor: pointer;
+    background-color: rgb(125, 125, 255);
+}
+
+#main h2 {
+    display: inline;
+    font-size: 2em;
+}
+
+#h2header {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Table styles */
+
+table {
+    min-width: 100%;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background-color: #e2e2e2;
+}
+
+td:nth-child(even) {
+    text-align: center;
+}
+
+td:nth-child(3) {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+table button {
+    cursor: pointer;
+    font-size: 25px;
+}
+
+footer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+#doneList td:nth-child(1) {
+    text-decoration: line-through;
+}

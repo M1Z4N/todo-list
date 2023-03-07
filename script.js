@@ -227,7 +227,7 @@ function moveToCurrentTasks(uuid) {
 
 
 function deleteButtonGenerateFunc(uuid) {
-    return " <button style='color:red;' onclick='deleteTask(`" + uuid + "`)'>Delete</button>";
+    return " <button style='color:red;' onclick='deleteTask(`" + uuid + "`)'><i class='fa-solid fa-trash-can'></i></button>";
 }
 
 function doneButtonGenerateFunc(uuid) {
