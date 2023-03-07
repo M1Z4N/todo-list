@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Free To Do list">
-  <meta name="keywords" content="TODO list">
-  <meta name="author" content="Artur Nazim">
+    <meta name="keywords" content="TODO list">
+    <meta name="author" content="Artur Nazim">
     <title>ToDo list</title>
 </head>
+
 <body onload="writeTasks()">
     <h1>Todo list:</h1>
     <input type="text" id="inputTask" autofocus></input>
@@ -17,10 +19,34 @@
     <input type="checkbox" id="deleteConfirm"></input>
     <label for="deleteConfirm">Don't ask me if i want to delete.</label>
     <h2>Todo: <button onclick="deleteAll(currentTasks, 'To Do', 'currentTasks')">Delete all todo tasks</button></h2>
-    <ol id="list"></ol>
+    <ol id="list">
+        <table hidden>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Added on</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </ol>
     <h2>Done: <button onclick="deleteAll(doneTasks, 'Done', 'doneTasks')">Delete all done tasks</button></h2>
-    <ol id="doneList"></ol>
+    <ol id="doneList">
+        <table hidden>
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Added on</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </ol>
     <footer>Created by Artur Nazim | Github: <a href="https://github.com/M1Z4N" target="_blank">M1Z4N</a></footer>
     <script src="script.js"></script>
-</body>
+
 </html>
