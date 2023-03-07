@@ -8,45 +8,61 @@
     <meta name="description" content="Free To Do list">
     <meta name="keywords" content="TODO list">
     <meta name="author" content="Artur Nazim">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/35d6a50c01.js" crossorigin="anonymous"></script>
     <title>ToDo list</title>
 </head>
 
 <body onload="writeTasks()">
-    <h1>Todo list:</h1>
-    <input type="text" id="inputTask" autofocus></input>
-    <button onclick="addTask()" id="addButton">Add to list!</button>
-    <br><br><br>
-    <input type="checkbox" id="deleteConfirm"></input>
-    <label for="deleteConfirm">Don't ask me if i want to delete.</label>
-    <h2>Todo: <button onclick="deleteAll(currentTasks, 'To Do', 'currentTasks')">Delete all todo tasks</button></h2>
-    <ol id="list">
-        <table hidden>
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Added on</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </ol>
-    <h2>Done: <button onclick="deleteAll(doneTasks, 'Done', 'doneTasks')">Delete all done tasks</button></h2>
-    <ol id="doneList">
-        <table hidden>
-            <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Added on</th>
-                    <th>Options</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </ol>
-    <footer>Created by Artur Nazim | Github: <a href="https://github.com/M1Z4N" target="_blank">M1Z4N</a></footer>
+    <div id="container">
+        <header>
+            <h1>Todo list:</h1>
+            <input type="text" id="inputTask" placeholder="Type your task here.." autofocus></input>
+            <button onclick="addTask()" id="addButton"><i class="fa-solid fa-plus"></i></button>
+            <br><br>
+            <input type="checkbox" id="deleteConfirm"></input>
+            <label for="deleteConfirm">Don't ask me if i want to delete.</label>
+        </header><br>
+        <div id="main">
+            <div id="h2header">
+                <h2>Todo:</h2><button onclick="deleteAll(currentTasks, 'To Do', 'currentTasks')">Delete all todo tasks</button>
+            </div>
+            <hr>
+            <ol id="list">
+                <table hidden>
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Added on</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </ol>
+            <br><br>
+            <div id="h2header">
+                <h2>Done:</h2><button onclick="deleteAll(doneTasks, 'Done', 'doneTasks')">Delete all done tasks</button>
+            </div>
+            <hr>
+            <ol id="doneList">
+                <table hidden>
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Added on</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </ol>
+        </div>
+        <footer>Created by Artur Nazim | Github: <a href="https://github.com/M1Z4N" target="_blank">M1Z4N</a> <i
+                class="fa-brands fa-github"></i></footer>
+    </div>
     <script src="script.js"></script>
 
 </html>
