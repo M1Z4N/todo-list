@@ -24,6 +24,8 @@ body {
 }
 
 #container {
+    display: flex;
+    flex-direction: column;
     margin-top: 25px;
     margin-bottom: 50px;
     width: 50vw;
@@ -104,6 +106,10 @@ header button:hover {
     transition: 0.2s;
     transform: scale(0.8);
     cursor: pointer;
+}
+
+#main {
+    flex: 1;
 }
 
 .h2header {
