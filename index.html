@@ -8,6 +8,8 @@
     <meta name="description" content="Free To Do list">
     <meta name="keywords" content="TODO list">
     <meta name="author" content="Artur Nazim">
+    <link href="list-check-solid-dark.svg" rel="icon" media="(prefers-color-scheme: light)" />
+    <link href="list-check-solid-dark.svg" rel="icon" media="(prefers-color-scheme: dark)" />
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/35d6a50c01.js" crossorigin="anonymous"></script>
     <title>ToDo list</title>
@@ -17,24 +19,41 @@
     <div id="container">
         <header>
             <h1>Todo list:</h1>
-            <input type="text" id="inputTask" placeholder="Type your task here.." autofocus></input>
+            <i class="fa-solid fa-pen-to-square"></i>
             <button onclick="addTask()" id="addButton"><i class="fa-solid fa-plus"></i></button>
+            <input type="text" id="inputTask" placeholder="Type your task here.." autofocus></input>
             <br><br>
             <input type="checkbox" id="deleteConfirm"></input>
-            <label for="deleteConfirm">Don't ask me if i want to delete.</label>
+            <label for="deleteConfirm">Don't ask me if I want to delete.</label>
         </header><br>
         <div id="main">
-            <div id="h2header">
-                <h2>Todo:</h2><button onclick="deleteAll(currentTasks, 'To Do', 'currentTasks')">Delete all todo tasks</button>
+            <div class="h2header">
+                <h2>Todo:</h2><button onclick="deleteAll(currentTasks, 'To Do', 'currentTasks')">Delete all todo
+                    tasks</button>
             </div>
             <hr>
             <ol id="list">
                 <table hidden>
                     <thead>
                         <tr>
-                            <th>Task</th>
-                            <th>Added on</th>
-                            <th>Options</th>
+                            <th>
+                                <div>
+                                    <i class="fa-solid fa-list-check"></i>
+                                    <span>Task</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                    <span>Added on</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <i class="fa-solid fa-gear"></i>
+                                    <span>Options</span>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +61,7 @@
                 </table>
             </ol>
             <br><br>
-            <div id="h2header">
+            <div class="h2header">
                 <h2>Done:</h2><button onclick="deleteAll(doneTasks, 'Done', 'doneTasks')">Delete all done tasks</button>
             </div>
             <hr>
@@ -50,9 +69,24 @@
                 <table hidden>
                     <thead>
                         <tr>
-                            <th>Task</th>
-                            <th>Added on</th>
-                            <th>Options</th>
+                            <th>
+                                <div>
+                                    <i class="fa-solid fa-list-check"></i>
+                                    <span>Task</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                    <span>Added on</span>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <i class="fa-solid fa-gear"></i>
+                                    <span>Options</span>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,8 +94,7 @@
                 </table>
             </ol>
         </div>
-        <footer>Created by Artur Nazim | Github: <a href="https://github.com/M1Z4N" target="_blank">M1Z4N</a> <i
-                class="fa-brands fa-github"></i></footer>
+        <footer>Created by Artur Nazim | Github: <a href="https://github.com/M1Z4N" target="_blank">M1Z4N  <i class="fa-brands fa-github"></i></a></footer>
     </div>
     <script src="script.js"></script>
 

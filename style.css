@@ -17,10 +17,19 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 #container {
+    margin-top: 25px;
+    margin-bottom: 50px;
     width: 50vw;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    backdrop-filter: blur(15px);
+    border-radius: 40px;
 }
 
 #container h1 {
@@ -31,89 +40,190 @@ body {
 }
 
 header {
-    background: rgb(37,37,224);
-    background: radial-gradient(circle, rgba(37,37,224,1) 0%, rgba(255,255,255,1) 100%);
-    background-position: 50% -100%;
     padding: 30px;
 }
 
-input[type=text] {
-    width: 99%;
+/* Pen icon in input */
+header .fa-pen-to-square {
+    position: absolute;
+    top: 110px;
+    left: 42px;
+    z-index: 1;
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+header input[type=text] {
+    width: 100%;
     padding: 12px 12px;
-    padding-right: 50px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
+    padding-left: 50px;
+    padding-right: 60px;
+    margin: 10px 0;
+    border: 10px solid black;
+    border: none;
     border-radius: 10px;
     outline: none;
 }
 
 input[type=checkbox] {
-    transform: scale(1.5);
+    position: relative;
+    top: -2px;
+    margin-right: 5px;
+    transform: scale(1.8);
 }
 
 input[type=checkbox]:hover {
     cursor: pointer;
 }
 
+/* Button in input */
 header button {
+    position: absolute;
+    top: 100px;
+    right: 35px;
     transition: 0.2s;
-    margin-left: -50px;
-    border: 1px solid #ccc;
+    border: none;
     border-radius: 10px;
-    padding: 6px;
-    background-color: rgb(125, 125, 255);
+    padding: 7px;
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+    aspect-ratio: 1/1;
+    width: 45px;
 }
 
 header button i {
     color: white;
+    position: relative;
+    top: 2px;
+    left: 1px;
 }
 
 header button:hover {
     transition: 0.2s;
     transform: scale(0.8);
     cursor: pointer;
-    background-color: rgb(125, 125, 255);
 }
 
-#main h2 {
-    display: inline;
-    font-size: 2em;
-}
-
-#h2header {
+.h2header {
     display: flex;
     justify-content: space-between;
+    padding: 0 20px 0 20px;
+    margin-bottom: 10px;
+}
+
+.h2header h2 {
+    font-size: 1.8em;
+    position: relative;
+    top: 15px;
+}
+
+.h2header button {
+    transition: 0.3s;
+    box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+    border: solid 3px transparent;
+    background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(101deg, #78e4ff, #ff48fa);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: 2px 1000px 1px #ffffff inset;
+    padding: 8px;
+    border-radius: 20px;
+    font-size: 1.4vw;
+}
+
+.h2header button:hover {
+    transition: 0.3s;
+    transform: scale(0.9);
+    box-shadow: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  hr {
+    margin: 0 20px 0 20px;
+    background: rgb(255, 255, 255);
+    height: 4px;
+    border: none;
+  }
+
+  /* ol styles */
+
+ol {
+    padding-left: 40px;
+    padding-right: 20px;
 }
 
 /* Table styles */
 
 table {
-    min-width: 100%;
+    margin: auto;
+    min-width: 90%;
     border-collapse: collapse;
 }
 
+th div {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1.5vw;
+    padding: 5px;
+}
+
+th:nth-child(3) div{
+    justify-content: flex-end;
+}
+
+th:nth-child(1) {
+    width: 60%;
+}
+
+th:nth-child(2) {
+    width: 23%;
+}
+
+th:nth-child(3) {
+    width: 17%;
+}
+
+th i {
+    position: relative;
+    top: 2px;
+}
+
 tr:nth-child(even) {
-    background-color: #e2e2e2;
+    background-color: rgba(226, 226, 226, 0.5);
 }
 
 td:nth-child(even) {
     text-align: center;
 }
 
+td {
+    border-bottom: 1px solid black;
+    font-size: 1.5vw;
+}
+
 td:nth-child(3) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    text-align: right;
 }
 
 table button {
     cursor: pointer;
-    font-size: 25px;
+    font-size: 30px;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 footer {
-    margin-top: 30px;
+    margin: 40px 0 40px;
     text-align: center;
+    color: white;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
 }
 
 #doneList td:nth-child(1) {
