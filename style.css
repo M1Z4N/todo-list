@@ -154,6 +154,12 @@ ol {
     padding-right: 20px;
 }
 
+/* p styles when no tasks are present */
+
+ol p {
+    margin-top: 20px;
+}
+
 /* Table styles */
 
 table {
@@ -175,11 +181,11 @@ th:nth-child(3) div{
 }
 
 th:nth-child(1) {
-    width: 60%;
+    width: 57%;
 }
 
 th:nth-child(2) {
-    width: 23%;
+    width: 26%;
 }
 
 th:nth-child(3) {

@@ -244,9 +244,9 @@ function currentTime() {
     const month = date.getMonth() + 1; // Because getMonth() starts from 0
     // If minutes are underneath 10 insert 0 before minutes otherwise don't
     if (date.getMinutes() < 10) {
-        dateOfTaskAdded += "0" + date.getMinutes() + " " + date.getDate() + "-" + month + "-" + date.getFullYear();
+        dateOfTaskAdded += "0" + date.getMinutes() + " | " + date.getDate() + "-" + month + "-" + date.getFullYear();
     } else {
-        dateOfTaskAdded += date.getMinutes() + " " + date.getDate() + "-" + month + "-" + date.getFullYear();
+        dateOfTaskAdded += date.getMinutes() + " | " + date.getDate() + "-" + month + "-" + date.getFullYear();
     }
 
     return dateOfTaskAdded;
