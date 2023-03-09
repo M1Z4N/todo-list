@@ -227,15 +227,15 @@ function moveToCurrentTasks(uuid) {
 
 
 function deleteButtonGenerateFunc(uuid) {
-    return " <button onclick='deleteTask(`" + uuid + "`)'><i class='fa-solid fa-trash-can'></i></button>";
+    return " <button onmouseover=shakeGarbageBin(`garbage" + uuid + "`) class='deleteButton' onclick='deleteTask(`" + uuid + "`)'><i id=garbage" + uuid + " class='fa-solid fa-trash-can'></i></button>";
 }
 
 function doneButtonGenerateFunc(uuid) {
-    return " <button style='color:green;' onclick='moveToDoneTasks(`" + uuid + "`)'>Done</button>";
+    return " <button class='doneButton' onclick='moveToDoneTasks(`" + uuid + "`)'>Done!</button>";
 }
 
 function undoneButtonGenerateFunc(uuid) {
-    return " <button style='color:blue;' onclick='moveToCurrentTasks(`" + uuid + "`)'>Not done!</button>";
+    return " <button class='undoButton' onclick='moveToCurrentTasks(`" + uuid + "`)'>Undo!</button>";
 }
 
 function currentTime() {
@@ -265,3 +265,18 @@ document.getElementById("inputTask")
             document.getElementById("addButton").click();
         }
     });
+
+// Function from stackoverflow 
+// https://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Function that triggers on mouseover and sets new class (for <i> with font awesome icon of trash bin) for 800ms
+async function shakeGarbageBin(iID) {
+    console.log(iID);
+    const bin = document.getElementById(iID);
+    bin.classList.add("fa-shake");
+    await sleep(800);
+    bin.classList.remove("fa-shake");
+}
