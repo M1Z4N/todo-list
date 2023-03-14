@@ -135,7 +135,7 @@ header button:hover {
     box-shadow: 2px 1000px 1px #ffffff inset;
     padding: 8px;
     border-radius: 20px;
-    font-size: 1.4vw;
+    font-size: 22px;
 }
 
 .h2header button:hover {
@@ -213,7 +213,8 @@ td:nth-child(even) {
 
 td {
     border-bottom: 1px solid black;
-    font-size: 1.5vw;
+    font-size: max(25px, 1.5vw);
+    word-break: break-all;
 }
 
 td:nth-child(3) {
@@ -296,4 +297,42 @@ footer a {
 
 #doneList td:nth-child(1) {
     text-decoration: line-through;
+}
+
+li::marker {
+    letter-spacing: -3px;
+}
+
+/* For mobiles */
+
+@media only screen and (max-width: 1576px) {
+    #container {
+        width: 790px;
+    }
+}
+
+@media only screen and (max-width: 805px) {
+    ol table th div{
+        font-size: 3.1vw;
+    }
+
+    ol table tbody tr td {
+        font-size: 3.1vw;
+    }
+
+    ol table tbody tr td button {
+        font-size: 3.1vw;
+    }
+
+    ol {
+        padding: 15px;
+    }
+
+    footer {
+        font-size: 20px;
+    }
+
+    li::marker {
+        letter-spacing: -1.5px;
+    }
 }
