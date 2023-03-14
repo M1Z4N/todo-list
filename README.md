@@ -3,3 +3,7 @@ My first more advanced project built to get me better with js. You can add, dele
 
 ## Desktop view
 ![image](https://user-images.githubusercontent.com/52010727/224124534-98f4a6ad-59db-40b7-96ef-08d38261f568.png)
+
+## Disclaimer
+
+If you ever tried before to load this todo list and you don't see any changes try refresh page with <strong>ctrl + f5</strong> it might help.
